@@ -1,0 +1,10 @@
+{
+  "gate_id": "PIPE-03",
+  "expected_output": {
+    "pipeline_type": "Chat",
+    "metrics_selected": ["AnswerRelevancyMetric", "HallucinationMetric"],
+    "excluded_metrics": ["ContextualRelevancyMetric", "ContextualPrecisionMetric", "ContextualRecallMetric", "FaithfulnessMetric"]
+  },
+  "match_type": "contains_keys",
+  "required_keys": ["metrics_selected", "excluded_metrics"]
+}

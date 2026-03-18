@@ -1,0 +1,14 @@
+{
+  "metrics_selected": [
+    "AnswerRelevancyMetric",
+    "BiasMetric",
+    "ToxicityMetric"
+  ],
+  "excluded": [
+    "ContextualRelevancyMetric",
+    "ContextualPrecisionMetric",
+    "ContextualRecallMetric",
+    "FaithfulnessMetric"
+  ],
+  "violations": []
+}

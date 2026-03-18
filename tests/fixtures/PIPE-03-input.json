@@ -1,0 +1,11 @@
+{
+  "gate_id": "PIPE-03",
+  "description": "Chat pipeline excludes retrieval metrics",
+  "mock_input": {
+    "pipeline_type": "Chat",
+    "endpoint": "app.chat",
+    "description": "Evaluate our general chatbot for customer FAQ"
+  },
+  "pipeline_step": 3,
+  "instructions": "Process pipeline_type through metric selection matrix. Verify retrieval metrics (ContextualRelevancy, ContextualPrecision, ContextualRecall, Faithfulness) are NOT in selected metrics."
+}

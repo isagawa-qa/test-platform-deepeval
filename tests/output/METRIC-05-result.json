@@ -1,0 +1,4 @@
+{
+  "error": "retrieval_context is required for retrieval metrics",
+  "valid": false
+}

@@ -1,0 +1,15 @@
+{
+  "gate_id": "METRIC-05",
+  "description": "Retrieval metrics require retrieval_context parameter",
+  "mock_input": {
+    "test_case": {
+      "input": "What are the benefits of RAG?",
+      "actual_output": "RAG improves accuracy by grounding responses in retrieved documents.",
+      "retrieval_context": null
+    },
+    "metric": "ContextualRelevancyMetric",
+    "threshold": 0.6
+  },
+  "pipeline_step": 3,
+  "instructions": "Attempt to create RetrievalMetrics with a test case missing retrieval_context. Should raise validation error."
+}

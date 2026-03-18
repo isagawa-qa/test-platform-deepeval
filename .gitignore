@@ -1,0 +1,6 @@
+.claude/state/hook_debug.log
+__pycache__/
+*.pyc
+.pytest_cache/
+eval_results/
+.env

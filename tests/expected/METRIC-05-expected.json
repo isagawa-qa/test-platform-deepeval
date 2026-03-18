@@ -1,0 +1,10 @@
+{
+  "gate_id": "METRIC-05",
+  "expected_output": {
+    "error": "retrieval_context is required for retrieval metrics",
+    "valid": false
+  },
+  "match_type": "contains_keys",
+  "required_keys": ["error", "valid"],
+  "required_values": {"valid": false}
+}

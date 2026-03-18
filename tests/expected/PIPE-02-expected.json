@@ -1,0 +1,12 @@
+{
+  "gate_id": "PIPE-02",
+  "expected_output": {
+    "pipeline_type": "Agent",
+    "metrics_selected": ["ToolCorrectnessMetric", "TaskCompletionMetric"]
+  },
+  "match_type": "contains_keys",
+  "required_keys": ["metrics_selected"],
+  "required_values": {
+    "metrics_selected": ["ToolCorrectnessMetric", "TaskCompletionMetric"]
+  }
+}

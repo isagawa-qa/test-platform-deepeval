@@ -1,0 +1,12 @@
+{
+  "gate_id": "PIPE-01",
+  "expected_output": {
+    "pipeline_type": "RAG",
+    "metrics_selected": ["FaithfulnessMetric", "ContextualRelevancyMetric", "AnswerRelevancyMetric"]
+  },
+  "match_type": "contains_keys",
+  "required_keys": ["metrics_selected"],
+  "required_values": {
+    "metrics_selected": ["FaithfulnessMetric", "ContextualRelevancyMetric"]
+  }
+}

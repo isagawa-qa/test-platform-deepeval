@@ -1,0 +1,32 @@
+[
+  {
+    "input": "What is the company vacation policy?",
+    "expected_output": "All full-time employees receive 15 days of paid time off (PTO) per year, accruing at 1.25 days per month. PTO increases to 20 days after 3 years of service.",
+    "context": ["HR Policy Manual, Section 4.2: Vacation and PTO Policy"],
+    "retrieval_context": ["Section 4.2: All full-time employees receive 15 days of paid time off (PTO) per year. PTO accrues at a rate of 1.25 days per month. After 3 years of continuous service, PTO increases to 20 days per year."]
+  },
+  {
+    "input": "How do I submit an expense report?",
+    "expected_output": "Submit expense reports through the Concur system within 30 days of the expense. Attach receipts for any expense over $25. Manager approval is required for expenses over $500.",
+    "context": ["Finance Policy, Section 7.1: Expense Reporting"],
+    "retrieval_context": ["Section 7.1: All business expenses must be submitted through Concur within 30 days. Receipts are required for expenses exceeding $25. Expenses over $500 require manager approval prior to submission."]
+  },
+  {
+    "input": "What are the remote work requirements?",
+    "expected_output": "Employees may work remotely up to 3 days per week with manager approval. A stable internet connection and dedicated workspace are required. Core hours are 10am-3pm in the employee's local timezone.",
+    "context": ["HR Policy Manual, Section 5.4: Remote Work Policy"],
+    "retrieval_context": ["Section 5.4: Remote work is available up to 3 days per week subject to manager approval. Requirements include a stable internet connection (minimum 25 Mbps) and a dedicated workspace. All remote employees must be available during core hours of 10:00 AM to 3:00 PM local time."]
+  },
+  {
+    "input": "What is the process for internal transfers?",
+    "expected_output": "Employees must have been in their current role for at least 12 months. Apply through the internal job board. Current manager will be notified after you apply. The hiring manager conducts interviews within 2 weeks.",
+    "context": ["HR Policy Manual, Section 3.6: Internal Mobility"],
+    "retrieval_context": ["Section 3.6: Internal transfers require a minimum of 12 months in the current role. Employees apply through the internal job board. Current managers are automatically notified upon application submission. Hiring managers must complete interviews within 14 business days of application receipt."]
+  },
+  {
+    "input": "What benefits does the company offer for professional development?",
+    "expected_output": "The company provides $2,500 annually for professional development including courses, conferences, and certifications. Employees can also access LinkedIn Learning for free.",
+    "context": ["Benefits Guide, Section 9.2: Professional Development"],
+    "retrieval_context": ["Section 9.2: Each employee receives a $2,500 annual professional development stipend for approved courses, conferences, certifications, and books. LinkedIn Learning access is provided to all employees at no cost. Requests must be submitted 30 days in advance for budget approval."]
+  }
+]

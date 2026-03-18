@@ -1,0 +1,11 @@
+{
+  "gate_id": "PIPE-02",
+  "description": "Agent pipeline metric selection includes ToolCorrectness + TaskCompletion",
+  "mock_input": {
+    "pipeline_type": "Agent",
+    "endpoint": "app.run_agent",
+    "description": "Evaluate our customer support agent that uses tools to look up orders and process refunds"
+  },
+  "pipeline_step": 3,
+  "instructions": "Process pipeline_type through metric selection matrix. Verify ToolCorrectness and TaskCompletion are in selected metrics."
+}

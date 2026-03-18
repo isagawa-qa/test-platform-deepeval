@@ -1,0 +1,11 @@
+{
+  "gate_id": "PIPE-01",
+  "description": "RAG pipeline metric selection includes Faithfulness + ContextualRelevancy",
+  "mock_input": {
+    "pipeline_type": "RAG",
+    "endpoint": "app.query_pipeline",
+    "description": "Evaluate our RAG pipeline that answers questions about company policies"
+  },
+  "pipeline_step": 3,
+  "instructions": "Process pipeline_type through metric selection matrix. Verify Faithfulness and ContextualRelevancy are in selected metrics."
+}

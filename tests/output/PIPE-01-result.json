@@ -1,0 +1,6 @@
+{
+  "metrics_selected": [
+    "FaithfulnessMetric",
+    "ContextualRelevancyMetric"
+  ]
+}
