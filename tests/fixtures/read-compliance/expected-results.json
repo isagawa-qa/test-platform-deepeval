@@ -1,0 +1,86 @@
+{
+  "perfect-compliance-001": {
+    "compliance_score": 1.0,
+    "coverage_score": 1.0,
+    "passed": true,
+    "missed_reads": [],
+    "extra_reads": []
+  },
+  "perfect-compliance-002": {
+    "compliance_score": 1.0,
+    "coverage_score": 1.0,
+    "passed": true,
+    "missed_reads": [],
+    "extra_reads": []
+  },
+  "partial-compliance-001": {
+    "compliance_score": 0.5,
+    "coverage_score": 1.0,
+    "passed": false,
+    "missed_reads": [".claude/lessons/lessons.md"],
+    "extra_reads": []
+  },
+  "partial-compliance-002": {
+    "compliance_score": 0.6667,
+    "coverage_score": 1.0,
+    "passed": false,
+    "missed_reads": [".claude/references/core-philosophy.md"],
+    "extra_reads": []
+  },
+  "zero-compliance-001": {
+    "compliance_score": 0.0,
+    "coverage_score": 0.0,
+    "passed": false,
+    "missed_reads": [".claude/lessons/lessons.md", ".claude/protocols/domain-protocol.md"],
+    "extra_reads": ["README.md", "package.json"]
+  },
+  "extra-reads-001": {
+    "compliance_score": 1.0,
+    "coverage_score": 0.5,
+    "passed": true,
+    "missed_reads": [],
+    "extra_reads": ["README.md"]
+  },
+  "extra-reads-002": {
+    "compliance_score": 1.0,
+    "coverage_score": 0.2,
+    "passed": true,
+    "missed_reads": [],
+    "extra_reads": ["README.md", "package.json", "src/index.ts", "tests/conftest.py"]
+  },
+  "empty-required-001": {
+    "compliance_score": 1.0,
+    "coverage_score": 0.0,
+    "passed": true,
+    "missed_reads": [],
+    "extra_reads": ["README.md"]
+  },
+  "empty-actual-001": {
+    "compliance_score": 0.0,
+    "coverage_score": 0.0,
+    "passed": false,
+    "missed_reads": [".claude/lessons/lessons.md", ".claude/protocols/domain-protocol.md"],
+    "extra_reads": []
+  },
+  "single-file-001": {
+    "compliance_score": 1.0,
+    "coverage_score": 1.0,
+    "passed": true,
+    "missed_reads": [],
+    "extra_reads": []
+  },
+  "large-set-001": {
+    "compliance_score": 0.8,
+    "coverage_score": 1.0,
+    "passed": false,
+    "missed_reads": [".claude/commands/kernel/anchor.md", ".claude/skills/SKILL.md"],
+    "extra_reads": []
+  },
+  "overlapping-paths-001": {
+    "compliance_score": 0.6667,
+    "coverage_score": 0.5,
+    "passed": false,
+    "missed_reads": [".claude/lessons/lessons.md"],
+    "extra_reads": ["README.md", "package.json"]
+  }
+}

@@ -35,6 +35,12 @@ Complete catalog of DeepEval metrics with required test case parameters. Referen
 | PlanQualityMetric | Was the plan well-formed? | input, actual_output (full trace) | 0.6 |
 | PlanAdherenceMetric | Did the agent follow its plan? | input, actual_output (full trace) | 0.7 |
 
+## Procedure Compliance Metrics
+
+| Metric | What It Measures | Required Params | Default Threshold |
+|--------|-----------------|-----------------|-------------------|
+| ReadComplianceMetric | Did the agent read all required files before generation? | required_reads, actual_reads | 1.0 (all required) |
+
 ## Conversational Metrics
 
 | Metric | What It Measures | Required Params | Default Threshold |
@@ -74,6 +80,8 @@ Complete catalog of DeepEval metrics with required test case parameters. Referen
 | expected_tools | list[str] | Agentic metrics |
 | token_cost | float | Cost tracking (optional) |
 | completion_time | float | Latency tracking (optional) |
+| required_reads | list[str] | ReadComplianceMetric |
+| actual_reads | list[str] | ReadComplianceMetric |
 
 ## Inverse Metrics
 

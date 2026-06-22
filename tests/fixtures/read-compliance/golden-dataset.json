@@ -1,0 +1,189 @@
+[
+  {
+    "test_id": "perfect-compliance-001",
+    "description": "All required files read, no extras — perfect compliance",
+    "required_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md"
+    ],
+    "actual_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md"
+    ],
+    "expected_compliance_score": 1.0,
+    "expected_coverage_score": 1.0,
+    "expected_pass": true
+  },
+  {
+    "test_id": "perfect-compliance-002",
+    "description": "Single required file read — minimal perfect compliance",
+    "required_reads": [
+      ".claude/skills/SKILL.md"
+    ],
+    "actual_reads": [
+      ".claude/skills/SKILL.md"
+    ],
+    "expected_compliance_score": 1.0,
+    "expected_coverage_score": 1.0,
+    "expected_pass": true
+  },
+  {
+    "test_id": "partial-compliance-001",
+    "description": "One of two required files read — 50% compliance",
+    "required_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md"
+    ],
+    "actual_reads": [
+      ".claude/protocols/domain-protocol.md"
+    ],
+    "expected_compliance_score": 0.5,
+    "expected_coverage_score": 1.0,
+    "expected_pass": false
+  },
+  {
+    "test_id": "partial-compliance-002",
+    "description": "Two of three required files read — 66.7% compliance",
+    "required_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md",
+      ".claude/references/core-philosophy.md"
+    ],
+    "actual_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md"
+    ],
+    "expected_compliance_score": 0.6667,
+    "expected_coverage_score": 1.0,
+    "expected_pass": false
+  },
+  {
+    "test_id": "zero-compliance-001",
+    "description": "None of the required files were read",
+    "required_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md"
+    ],
+    "actual_reads": [
+      "README.md",
+      "package.json"
+    ],
+    "expected_compliance_score": 0.0,
+    "expected_coverage_score": 0.0,
+    "expected_pass": false
+  },
+  {
+    "test_id": "extra-reads-001",
+    "description": "All required read plus one extra — full compliance, low coverage",
+    "required_reads": [
+      ".claude/protocols/domain-protocol.md"
+    ],
+    "actual_reads": [
+      ".claude/protocols/domain-protocol.md",
+      "README.md"
+    ],
+    "expected_compliance_score": 1.0,
+    "expected_coverage_score": 0.5,
+    "expected_pass": true
+  },
+  {
+    "test_id": "extra-reads-002",
+    "description": "All required read plus many extras — full compliance, very low coverage",
+    "required_reads": [
+      ".claude/protocols/domain-protocol.md"
+    ],
+    "actual_reads": [
+      ".claude/protocols/domain-protocol.md",
+      "README.md",
+      "package.json",
+      "src/index.ts",
+      "tests/conftest.py"
+    ],
+    "expected_compliance_score": 1.0,
+    "expected_coverage_score": 0.2,
+    "expected_pass": true
+  },
+  {
+    "test_id": "empty-required-001",
+    "description": "Nothing required — trivially compliant regardless of reads",
+    "required_reads": [],
+    "actual_reads": [
+      "README.md"
+    ],
+    "expected_compliance_score": 1.0,
+    "expected_coverage_score": 0.0,
+    "expected_pass": true
+  },
+  {
+    "test_id": "empty-actual-001",
+    "description": "Files required but nothing read — zero compliance",
+    "required_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md"
+    ],
+    "actual_reads": [],
+    "expected_compliance_score": 0.0,
+    "expected_coverage_score": 0.0,
+    "expected_pass": false
+  },
+  {
+    "test_id": "single-file-001",
+    "description": "One required, one read, match — single file perfect compliance",
+    "required_reads": [
+      ".claude/skills/step-01.md"
+    ],
+    "actual_reads": [
+      ".claude/skills/step-01.md"
+    ],
+    "expected_compliance_score": 1.0,
+    "expected_coverage_score": 1.0,
+    "expected_pass": true
+  },
+  {
+    "test_id": "large-set-001",
+    "description": "10 required files, 8 read — 80% compliance",
+    "required_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md",
+      ".claude/references/core-philosophy.md",
+      ".claude/references/ai-agent-development.md",
+      ".claude/references/code-quality.md",
+      ".claude/references/git-workflow.md",
+      ".claude/references/anti-patterns.md",
+      ".claude/references/quality-gates.md",
+      ".claude/skills/SKILL.md",
+      ".claude/commands/kernel/anchor.md"
+    ],
+    "actual_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md",
+      ".claude/references/core-philosophy.md",
+      ".claude/references/ai-agent-development.md",
+      ".claude/references/code-quality.md",
+      ".claude/references/git-workflow.md",
+      ".claude/references/anti-patterns.md",
+      ".claude/references/quality-gates.md"
+    ],
+    "expected_compliance_score": 0.8,
+    "expected_coverage_score": 1.0,
+    "expected_pass": false
+  },
+  {
+    "test_id": "overlapping-paths-001",
+    "description": "Partial overlap between required and actual reads",
+    "required_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/lessons/lessons.md",
+      ".claude/skills/SKILL.md"
+    ],
+    "actual_reads": [
+      ".claude/protocols/domain-protocol.md",
+      ".claude/skills/SKILL.md",
+      "README.md",
+      "package.json"
+    ],
+    "expected_compliance_score": 0.6667,
+    "expected_coverage_score": 0.5,
+    "expected_pass": false
+  }
+]
