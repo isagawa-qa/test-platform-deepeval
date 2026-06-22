@@ -1,2 +1,3 @@
 from .read_compliance_metrics import ReadComplianceMetric
 from .instrumentation import ReadTraceParser
+from .failure_mode_classifier import FailureModeClassifier

@@ -40,6 +40,7 @@ Complete catalog of DeepEval metrics with required test case parameters. Referen
 | Metric | What It Measures | Required Params | Default Threshold |
 |--------|-----------------|-----------------|-------------------|
 | ReadComplianceMetric | Did the agent read all required files before generation? | required_reads, actual_reads | 1.0 (all required) |
+| FailureModeClassifier | HOW did the agent fail? (correct, silent_drift, partial_read, hallucination, contradiction_ignored) | task_completion_score, read_compliance_score, agent_output, source_content | N/A (classification) |
 
 ## Conversational Metrics
 

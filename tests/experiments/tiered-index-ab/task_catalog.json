@@ -1,0 +1,242 @@
+[
+  {
+    "task_id": "lookup-001",
+    "category": "single_file_lookup",
+    "description": "Find the recommended test isolation strategy from the coding guide",
+    "input": "What test isolation strategy does the coding guide recommend for database-dependent tests?",
+    "expected_output": "The coding guide recommends using transaction rollback isolation — each test runs inside a database transaction that is rolled back after the test completes, ensuring no persistent state leaks between tests.",
+    "required_reads_tiered": ["coding-guide/index.md", "coding-guide/patterns.md"],
+    "flat_file": "coding-guide.md",
+    "difficulty": "easy"
+  },
+  {
+    "task_id": "lookup-002",
+    "category": "single_file_lookup",
+    "description": "Find the maximum retry count for failed API calls",
+    "input": "What is the maximum retry count for failed API calls according to the research protocol?",
+    "expected_output": "The research protocol specifies a maximum of 3 retries with exponential backoff (1s, 4s, 16s) for failed API calls before marking the request as permanently failed.",
+    "required_reads_tiered": ["research-protocol/index.md", "research-protocol/methodology.md"],
+    "flat_file": "research-protocol.md",
+    "difficulty": "easy"
+  },
+  {
+    "task_id": "lookup-003",
+    "category": "single_file_lookup",
+    "description": "Find the approval threshold for automated deployments",
+    "input": "What approval threshold must be met before an automated deployment can proceed?",
+    "expected_output": "Automated deployments require all three conditions: (1) all CI checks green, (2) at least 2 peer approvals, and (3) no open P0/P1 bugs against the release branch.",
+    "required_reads_tiered": ["workflow-spec/index.md", "workflow-spec/deployment.md"],
+    "flat_file": "workflow-spec.md",
+    "difficulty": "medium"
+  },
+  {
+    "task_id": "lookup-004",
+    "category": "single_file_lookup",
+    "description": "Find the data retention policy for user analytics",
+    "input": "How long are raw user analytics events retained before aggregation?",
+    "expected_output": "Raw user analytics events are retained for 90 days, after which they are aggregated into daily summaries. The daily summaries are retained for 2 years.",
+    "required_reads_tiered": ["memory-decisions/index.md", "memory-decisions/data-lifecycle.md"],
+    "flat_file": "memory-decisions.md",
+    "difficulty": "medium"
+  },
+  {
+    "task_id": "crossref-001",
+    "category": "cross_reference",
+    "description": "Combine error handling strategy from two sections",
+    "input": "How should error handling work for async tasks that interact with external APIs? Combine the async patterns from the coding guide with the API retry policy from the research protocol.",
+    "expected_output": "Async tasks calling external APIs should use the circuit breaker pattern (coding guide) combined with the 3-retry exponential backoff (research protocol). When the circuit breaker is open, retries are skipped and the task is queued for later. When closed, each API call gets up to 3 retries (1s, 4s, 16s backoff) before the circuit breaker trips.",
+    "required_reads_tiered": ["coding-guide/index.md", "coding-guide/patterns.md", "research-protocol/index.md", "research-protocol/methodology.md"],
+    "flat_file": "coding-guide.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "crossref-002",
+    "category": "cross_reference",
+    "description": "Combine deployment approval with monitoring requirements",
+    "input": "What monitoring must be in place before a deployment can be approved, and who is responsible for verifying it?",
+    "expected_output": "Before deployment approval, the following monitoring must be verified: (1) error rate alerting on the target service (threshold: 1% 5xx over 5 min), (2) latency P99 alerting (threshold: 2s), and (3) rollback automation tested in staging. The on-call engineer for the target service is responsible for verifying all three conditions.",
+    "required_reads_tiered": ["workflow-spec/index.md", "workflow-spec/deployment.md", "workflow-spec/monitoring.md"],
+    "flat_file": "workflow-spec.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "crossref-003",
+    "category": "cross_reference",
+    "description": "Combine data retention with compliance requirements",
+    "input": "How do the data retention policies interact with GDPR deletion requests? What happens if a user requests deletion during the 90-day raw retention window?",
+    "expected_output": "GDPR deletion requests override the 90-day retention window. When a deletion request is received, raw events for that user must be purged within 30 days (compliance requirement). The daily aggregates are exempt if they are fully anonymized (no user ID linkage). The system must log the deletion request and completion timestamp for audit purposes.",
+    "required_reads_tiered": ["memory-decisions/index.md", "memory-decisions/data-lifecycle.md", "memory-decisions/compliance.md"],
+    "flat_file": "memory-decisions.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "crossref-004",
+    "category": "cross_reference",
+    "description": "Combine testing patterns with workflow gates",
+    "input": "What testing is required before a PR can move to the deployment queue? Reference both the testing standards and the workflow gates.",
+    "expected_output": "A PR requires: (1) unit tests with >80% line coverage (coding guide testing standards), (2) integration tests for any changed API endpoints (coding guide), (3) all CI checks green (workflow gate), and (4) 2 peer approvals including at least 1 from a code owner (workflow gate). If the PR touches the deployment pipeline itself, an additional staging dry-run is required.",
+    "required_reads_tiered": ["coding-guide/index.md", "coding-guide/testing.md", "workflow-spec/index.md", "workflow-spec/review-gates.md"],
+    "flat_file": "coding-guide.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "contra-001",
+    "category": "contradiction",
+    "description": "Detect conflict between doc and prompt on retry count",
+    "input": "Our team has decided to use 5 retries for failed API calls. Please update the error handling documentation to reflect this. The research protocol should be the source of truth.",
+    "expected_output": "The agent should flag that the research protocol currently specifies 3 retries with exponential backoff, which conflicts with the requested 5 retries. It should ask for clarification on whether to update the protocol or confirm the new value, and note that changing retry count affects the backoff timing (1s, 4s, 16s, 64s, 256s for 5 retries).",
+    "required_reads_tiered": ["research-protocol/index.md", "research-protocol/methodology.md"],
+    "flat_file": "research-protocol.md",
+    "difficulty": "medium"
+  },
+  {
+    "task_id": "contra-002",
+    "category": "contradiction",
+    "description": "Detect conflict between doc and prompt on approval count",
+    "input": "We're switching to a single-approver model for all PRs to speed up velocity. Please document this change in the workflow spec.",
+    "expected_output": "The agent should flag that the current workflow spec requires 2 peer approvals including 1 code owner, and that the deployment gate also requires 2 approvals. Switching to single-approver would require updating both the PR review gates AND the deployment approval criteria. It should note the risk: single-approver removes the code owner requirement.",
+    "required_reads_tiered": ["workflow-spec/index.md", "workflow-spec/review-gates.md", "workflow-spec/deployment.md"],
+    "flat_file": "workflow-spec.md",
+    "difficulty": "medium"
+  },
+  {
+    "task_id": "contra-003",
+    "category": "contradiction",
+    "description": "Detect conflict between two documentation sources",
+    "input": "According to our documentation, what is the correct test coverage threshold? I've seen different numbers in different places.",
+    "expected_output": "The agent should identify that the coding guide specifies >80% line coverage for unit tests, while the contradiction policy section in the docs states a 90% coverage target for critical services. These are not necessarily contradictory (80% baseline, 90% for critical), but the agent should flag the discrepancy and recommend clarifying which threshold applies where.",
+    "required_reads_tiered": ["coding-guide/index.md", "coding-guide/testing.md", "contradiction-policy/index.md", "contradiction-policy/coverage-standards.md"],
+    "flat_file": "coding-guide.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "contra-004",
+    "category": "contradiction",
+    "description": "Detect conflict on data retention between docs and prompt",
+    "input": "Legal says we need to keep all raw analytics data for 1 year minimum. Can you update our retention policy?",
+    "expected_output": "The agent should flag that the current policy retains raw events for only 90 days before aggregation. Extending to 1 year would increase storage costs significantly and may conflict with GDPR minimization principles (retain only what's necessary). It should recommend a compromise: retain raw data for 1 year but apply pseudonymization after 90 days.",
+    "required_reads_tiered": ["memory-decisions/index.md", "memory-decisions/data-lifecycle.md", "memory-decisions/compliance.md"],
+    "flat_file": "memory-decisions.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "workflow-001",
+    "category": "multi_step_workflow",
+    "description": "Follow the release checklist in order",
+    "input": "Walk me through the complete release process for a minor version bump, step by step.",
+    "expected_output": "1. Create release branch from main (release/vX.Y.0). 2. Run full CI suite on release branch. 3. Update CHANGELOG.md with version notes. 4. Get 2 peer approvals on the release PR. 5. Merge to main. 6. Tag the commit (vX.Y.0). 7. Deploy to staging, run smoke tests. 8. Deploy to production with canary (10% traffic for 30 min). 9. Full rollout. 10. Post-release monitoring for 24 hours.",
+    "required_reads_tiered": ["workflow-spec/index.md", "workflow-spec/release-process.md", "workflow-spec/deployment.md", "workflow-spec/monitoring.md"],
+    "flat_file": "workflow-spec.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "workflow-002",
+    "category": "multi_step_workflow",
+    "description": "Follow the incident response procedure",
+    "input": "We're seeing a 5% error rate spike in production. Walk me through the incident response steps.",
+    "expected_output": "1. Acknowledge the alert (within 5 min). 2. Assess severity — 5% error rate = P1 (threshold: >1% for >5 min). 3. Page the on-call engineer if not already notified. 4. Check recent deployments (last 2 hours). 5. If recent deploy found, initiate rollback. 6. If no recent deploy, check dependent services. 7. Open incident channel, post initial assessment. 8. Mitigate (rollback, feature flag, or traffic shift). 9. Confirm error rate returns to baseline. 10. Post-mortem within 48 hours.",
+    "required_reads_tiered": ["workflow-spec/index.md", "workflow-spec/incident-response.md", "workflow-spec/monitoring.md"],
+    "flat_file": "workflow-spec.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "workflow-003",
+    "category": "multi_step_workflow",
+    "description": "Follow the new service onboarding steps",
+    "input": "We're adding a new microservice. What are the required onboarding steps before it can receive production traffic?",
+    "expected_output": "1. Register service in service catalog. 2. Set up CI/CD pipeline (must pass template validation). 3. Configure monitoring: error rate, latency P99, throughput alerts. 4. Set up logging with structured format and correlation IDs. 5. Create runbook with common failure modes and remediation steps. 6. Load test in staging (must handle 2x expected peak). 7. Security review (dependency scan, auth configuration). 8. Get architecture review approval. 9. Deploy to staging, run integration tests. 10. Canary deployment to production.",
+    "required_reads_tiered": ["workflow-spec/index.md", "workflow-spec/service-onboarding.md"],
+    "flat_file": "workflow-spec.md",
+    "difficulty": "medium"
+  },
+  {
+    "task_id": "workflow-004",
+    "category": "multi_step_workflow",
+    "description": "Follow the code review process end to end",
+    "input": "I've written a new feature. Walk me through the complete code review and merge process.",
+    "expected_output": "1. Self-review: run linter + tests locally. 2. Create PR with description template filled. 3. Assign reviewers (at least 1 code owner). 4. Address review comments (resolve all threads). 5. Get 2 approvals. 6. Squash commits to clean history. 7. Verify CI is green. 8. Merge via merge queue (not direct merge). 9. Verify deployment to staging. 10. Monitor error rates for 1 hour post-deploy.",
+    "required_reads_tiered": ["workflow-spec/index.md", "workflow-spec/review-gates.md", "coding-guide/index.md", "coding-guide/testing.md"],
+    "flat_file": "workflow-spec.md",
+    "difficulty": "medium"
+  },
+  {
+    "task_id": "memory-001",
+    "category": "memory_retrieval",
+    "description": "Recall a prior architecture decision and apply it",
+    "input": "We previously decided on an event sourcing pattern for the order service. Now we're building a similar inventory service. Should we use event sourcing here too, and why?",
+    "expected_output": "The prior decision (documented in memory-decisions) chose event sourcing for the order service because: (1) orders have complex state transitions, (2) audit trail is legally required, and (3) replaying events supports debugging. For inventory, event sourcing is recommended if the same conditions apply. However, the decision log notes that event sourcing adds operational complexity and should only be used when the audit trail or state replay benefits are required.",
+    "required_reads_tiered": ["memory-decisions/index.md", "memory-decisions/architecture-decisions.md"],
+    "flat_file": "memory-decisions.md",
+    "difficulty": "medium"
+  },
+  {
+    "task_id": "memory-002",
+    "category": "memory_retrieval",
+    "description": "Recall a prior technology choice rationale",
+    "input": "Why did we choose PostgreSQL over MongoDB for the user profile service? I need to reference this decision for a similar choice we're making now.",
+    "expected_output": "The decision (documented in memory-decisions) chose PostgreSQL because: (1) user profiles have relational data (user → addresses, user → preferences), (2) ACID transactions needed for profile updates that span multiple tables, (3) the team had stronger PostgreSQL expertise, and (4) MongoDB's schema flexibility wasn't needed since the profile schema was well-defined. The decision log notes that MongoDB would be preferred for document-heavy workloads without relational joins.",
+    "required_reads_tiered": ["memory-decisions/index.md", "memory-decisions/technology-choices.md"],
+    "flat_file": "memory-decisions.md",
+    "difficulty": "medium"
+  },
+  {
+    "task_id": "memory-003",
+    "category": "memory_retrieval",
+    "description": "Recall a rejected approach and explain why",
+    "input": "Someone on the team suggested using GraphQL for our new internal API. I recall we discussed this before and decided against it. What was the reasoning?",
+    "expected_output": "The prior decision rejected GraphQL for internal APIs because: (1) internal services have well-defined, stable contracts (REST is simpler), (2) GraphQL's query flexibility adds complexity without benefit for service-to-service calls, (3) caching is harder with GraphQL (no HTTP cache headers on POST), and (4) monitoring and rate limiting are more complex. GraphQL was deemed appropriate only for the public-facing API where clients have diverse data needs.",
+    "required_reads_tiered": ["memory-decisions/index.md", "memory-decisions/technology-choices.md"],
+    "flat_file": "memory-decisions.md",
+    "difficulty": "medium"
+  },
+  {
+    "task_id": "memory-004",
+    "category": "memory_retrieval",
+    "description": "Recall a security decision and current status",
+    "input": "What was our decision on API key rotation policy, and is the current implementation compliant?",
+    "expected_output": "The decision mandates 90-day API key rotation for all external-facing services. Keys older than 90 days trigger an alert, and keys older than 120 days are automatically revoked. The decision log notes that the implementation was completed for the payment service and user service, but the legacy reporting service still uses static keys (documented exception, remediation planned for Q3).",
+    "required_reads_tiered": ["memory-decisions/index.md", "memory-decisions/security-decisions.md"],
+    "flat_file": "memory-decisions.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "stress-001",
+    "category": "stress_test",
+    "description": "Find a specific configuration value in a large document",
+    "input": "What is the exact timeout value for the health check endpoint on the payment gateway service?",
+    "expected_output": "The health check endpoint on the payment gateway service has a timeout of 5 seconds, with a circuit breaker that opens after 3 consecutive timeouts. The health check interval is 10 seconds.",
+    "required_reads_tiered": ["workflow-spec/index.md", "workflow-spec/service-configs.md", "workflow-spec/monitoring.md"],
+    "flat_file": "workflow-spec.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "stress-002",
+    "category": "stress_test",
+    "description": "Synthesize information scattered across a large document",
+    "input": "List all the places where the number '3' appears as a threshold, limit, or count in our documentation. What patterns do you see?",
+    "expected_output": "The number 3 appears as: (1) 3 API retries (research protocol), (2) 3 consecutive health check failures to trip circuit breaker (workflow spec), (3) 3 required conditions for deployment approval (workflow spec), and (4) 3-level tiered split for large documents (coding guide). The pattern suggests a preference for triple-redundancy in fault tolerance and a rule-of-three for approval gates.",
+    "required_reads_tiered": ["coding-guide/index.md", "coding-guide/patterns.md", "research-protocol/index.md", "research-protocol/methodology.md", "workflow-spec/index.md", "workflow-spec/deployment.md", "workflow-spec/monitoring.md"],
+    "flat_file": "coding-guide.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "stress-003",
+    "category": "stress_test",
+    "description": "Follow a dependency chain through a large document",
+    "input": "Trace the dependency chain: what must be true before a canary deployment can start? Follow all prerequisites back to their root requirements.",
+    "expected_output": "Canary deployment requires: (1) staging deployment successful → which requires CI green + 2 approvals → which requires all tests passing + code owner review → which requires linter clean + coverage >80%. (2) Monitoring configured → which requires error rate alert + latency alert + rollback automation → which requires runbook with remediation steps. (3) No open P0/P1 bugs → which requires bug triage completed for the release. Root requirements: clean code (linter), tested code (>80% coverage), reviewed code (2 approvals), monitored service (3 alert types), and triaged bugs.",
+    "required_reads_tiered": ["workflow-spec/index.md", "workflow-spec/deployment.md", "workflow-spec/review-gates.md", "workflow-spec/monitoring.md", "workflow-spec/release-process.md"],
+    "flat_file": "workflow-spec.md",
+    "difficulty": "hard"
+  },
+  {
+    "task_id": "stress-004",
+    "category": "stress_test",
+    "description": "Identify all security-relevant requirements across all domains",
+    "input": "Compile a comprehensive list of all security-related requirements mentioned across all our documentation.",
+    "expected_output": "Security requirements: (1) API key rotation every 90 days, auto-revoke at 120 days (memory-decisions). (2) GDPR deletion within 30 days of request (memory-decisions). (3) Dependency security scan before deployment (workflow-spec). (4) Auth configuration review for new services (workflow-spec). (5) Pseudonymization of raw analytics after 90 days (memory-decisions). (6) Structured logging with correlation IDs, no PII in logs (workflow-spec). (7) Transaction rollback isolation for test databases (coding-guide). (8) Input validation on all external API endpoints (coding-guide).",
+    "required_reads_tiered": ["coding-guide/index.md", "coding-guide/patterns.md", "coding-guide/testing.md", "research-protocol/index.md", "research-protocol/methodology.md", "workflow-spec/index.md", "workflow-spec/deployment.md", "workflow-spec/service-onboarding.md", "memory-decisions/index.md", "memory-decisions/security-decisions.md", "memory-decisions/compliance.md", "contradiction-policy/index.md", "contradiction-policy/coverage-standards.md"],
+    "flat_file": "coding-guide.md",
+    "difficulty": "hard"
+  }
+]
