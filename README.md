@@ -1,12 +1,6 @@
 # Isagawa DeepEval Platform
 
-### AI Execution Management for LLM Evaluation
-
-> AI can generate eval suites. But can you trust it to evaluate correctly?
-
-Most AI tools generate eval code and hope for the best. Isagawa **enforces how AI works** -- gating every action at runtime so the AI can only build evals the right way.
-
-This is not AI governance. It is **AI execution management**.
+AI-driven LLM and agent evaluation with DeepEval. Describe what to evaluate, and an AI agent builds golden-dataset evaluation suites for RAG, chat, agent, and conversational pipelines, with the right metrics for each pipeline type. Suites run like any other pytest suite and catch regressions when a prompt, model, or tool changes.
 
 ---
 
@@ -59,27 +53,7 @@ AI can generate DeepEval test cases in seconds. But without enforcement:
 
 ## The Solution
 
-The Isagawa DeepEval Platform combines a **5-layer eval architecture** with the **Isagawa Kernel** -- a self-building, self-improving enforcement system that runs *inside* the AI agent.
-
----
-
-## 5-Layer Architecture
-
-| Layer | Responsibility | Example |
-|-------|---------------|---------|
-| **Test** | Asserts eval result | test_rag_faithfulness() |
-| **EvalRole** | Coordinates eval workflows | RAGEvaluator.run_full_eval() |
-| **EvalTask** | One eval operation | run_rag_eval() |
-| **Metric Object** | Thresholds + state-checks | FaithfulnessMetrics.is_above_threshold() |
-| **DeepEvalInterface** | Wraps DeepEval SDK | DeepEvalInterface.evaluate() |
-
-```
-Test -> EvalRole -> EvalTask -> Metric Object -> DeepEvalInterface -> DeepEval SDK
-```
-
-**Key rules:** Thresholds only in Metric Objects. Tasks/Roles never return values. Tests parametrize over golden datasets. Retry logic only in Interface.
-
----
+Every eval suite the agent builds follows one structure, with metrics matched to the pipeline type and thresholds kept in one place. The agent works under guardrails from the [Isagawa Kernel](https://github.com/isagawa-co/isagawa-kernel), so it builds evaluations consistently and does not repeat mistakes it has already made.
 
 ## Pipeline Types
 
@@ -103,64 +77,11 @@ claude && /eval-workflow
 
 ---
 
-## Project Structure
+## Author
 
-```
-test-platform-deepeval/
-  .claude/skills/deepeval-management-layer/  5-step eval workflow
-  .claude/commands/kernel/                   Kernel commands
-  .claude/hooks/                             Gate enforcer
-  framework/_reference/metrics/              7 Metric Object classes
-  framework/_reference/tasks/                EvalTask implementations
-  framework/_reference/roles/                EvalRole implementations
-  framework/interfaces/deepeval_interface.py DeepEvalInterface
-  tests/                                     Validation tests + fixtures
-  FRAMEWORK.md                               Architecture docs
-```
-
----
-
-## The Bigger Picture
-
-LLM evaluation is one domain. The Isagawa Kernel supports **any** domain:
-- **Test automation** -- [platform-selenium](https://github.com/isagawa-qa/platform-selenium), [platform-playwright](https://github.com/isagawa-qa/platform-playwright)
-- **Infrastructure** -- [platform-ssh](https://github.com/isagawa-qa/platform-ssh) (STIG, CIS, NIST 800-171)
-- **Containers** -- [platform-docker](https://github.com/isagawa-qa/platform-docker)
-
-The [Isagawa Kernel](https://github.com/isagawa-co/isagawa-kernel) is open-source.
-
----
-
-## AI Execution Management vs AI Governance
-
-| AI Governance (Others) | AI Execution Management (Isagawa) |
-|------------------------|-----------------------------------|
-| Monitors AI behavior | Controls AI behavior |
-| Documents compliance | Enforces compliance |
-| Alerts on violations | Prevents violations |
-| Audits after execution | Gates during execution |
-
----
-
-## Services
-
-We build working evals on **YOUR** LLM pipeline in 60 minutes.
-
-**[alain@isagawa.co](mailto:alain@isagawa.co)** | **[DM on LinkedIn](https://www.linkedin.com/in/alain-ignacio-54b9823)**
-
-| Offering | Included | Price |
-|----------|----------|-------|
-| **Demo** | Live 60-min session | Contact us |
-| **Implementation** | Full eval infra + training | USD 15,000 - 50,000 |
-| **Retainer** | Ongoing dev + support | USD 1,000 - 3,000/month |
-| **Enterprise** | Full + compliance + dedicated | Custom (50K+) |
-
----
+Built by Alain Ignacio, QA lead and test automation architect.
+Portfolio: [alain-ignacio.github.io](https://alain-ignacio.github.io) · LinkedIn: [linkedin.com/in/alain-ignacio](https://www.linkedin.com/in/alain-ignacio)
 
 ## License
 
-Proprietary -- isagawa-co
-
----
-
-Built with the [Isagawa Kernel](https://github.com/isagawa-co/isagawa-kernel) -- self-building, self-improving, safety-first.
+Proprietary. Copyright (c) 2025 Isagawa. All rights reserved. Source is available for evaluation only. See [LICENSE](LICENSE).
